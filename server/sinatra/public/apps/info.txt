@@ -1,0 +1,5 @@
+put your apps here
+
+de.test.test/test.ipa
+de.test.test/test.plist
+de.test.test/test.mobileprovision

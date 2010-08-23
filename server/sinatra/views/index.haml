@@ -1,0 +1,122 @@
+!!!
+%html{ :dir => "ltr", :lang => "de-DE", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title
+      iOS Beta Apps Installer
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    
+    %style{:type => "text/css", :media => "screen"}
+      @import "jqtouch/jqtouch.css";
+    %style{:type => "text/css", :media => "screen"}
+      @import "jqtouch/themes/jqt/theme.css";
+            
+    
+    %script{:type => "text/javascript",
+        :src  => "jqtouch/jquery-1.4.2.js"}
+    %script{:type => "text/javascript",
+        :src  => "jqtouch/jqtouch.js"}        
+    
+    :javascript
+      var jQT = new $.jQTouch({
+          addGlossToIcon: false,
+          statusBar: 'black',
+          useFastTouch: false,
+          preloadImages: [
+              'jqtouch/themes/jqt/img/back_button.png',
+              'jqtouch/themes/jqt/img/back_button_clicked.png',
+              'jqtouch/themes/jqt/img/button_clicked.png',
+              'jqtouch/themes/jqt/img/grayButton.png',
+              'jqtouch/themes/jqt/img/whiteButton.png',
+              'jqtouch/themes/jqt/img/loading.gif'
+              ]
+      });
+    
+    :css
+      #jqt.fullscreen #home .info {
+          display: none;
+      }
+      div#jqt #about {
+          padding: 100px 10px 40px;
+          text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+          font-size: 13px;
+          text-align: center;
+          background: #161618;
+      }
+      div#jqt #about p {
+          margin-bottom: 8px;
+      }
+      div#jqt #about a {
+          color: #fff;
+          font-weight: bold;
+          text-decoration: none;
+      }
+      
+  %body
+    #jqt
+      #about.selectable
+        %p
+          %strong
+            iOS Beta App Installer
+          %br
+          Version 0.1 beta
+          %br
+          %a{ :href => "http://www.buzzworks.de"}
+            By buzzworks.de
+        %p
+          %em
+            Update iOS beta apps and updates without iTunes from anywhere
+        %p
+          %a{ :href => "http://twitter.com/buzzworksHQ", :target => "_blank"}
+            @buzzworksHQ on Twitter
+        %p
+          %br
+          %br
+          %a.grayButton.goback{ :href => "#"}
+            Close
+      - @apps.each_with_index do |app, i|
+        %div{ :id => "app_#{i}"}
+          .toolbar
+            %h1 
+              = app.title
+            %a.back{ :href => "#home"}
+              Home
+          %h2
+            Provisioning Profile
+          %ul.rounded
+            %li
+              = app.profile_updated
+          %div{ :sytle => "margin: 10px"}
+            %a.grayButton{ :href => "#{@base_url}#{app.directory}/#{app.profile}"}
+              Install Profile
+          %h2
+            Application
+          %ul.rounded
+            %li
+              = app.title
+            %li
+              %small
+                = app.version 
+              Latest Version
+            - unless app.notes.nil?
+              %li 
+                %p
+                  = "Release Notes:<br />#{app.notes}"
+          %div{ :style => "margin: 10px"}
+            %a.grayButton{ :href => "itms-services://?action=download-manifest&url=http://#{@base_host}/#{app.directory}/#{App::TYPE_APP}"} 
+              Install Application
+          .info
+            Use the Install buttons to either install the provisioning profile or the application.
+
+      #home.current
+        .toolbar
+          %h1
+            iOS Beta Apps
+          %a#infoButton.button.slideup{ :href => "#about"}
+            About
+        %ul.rounded
+          - @apps.each_with_index do |app, i|
+            %li.arrow
+              %a{ :href => "#app_#{i}"}
+                = app.title
+        .info
+          Choose the app from above you want to install on your device.

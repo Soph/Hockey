@@ -1,0 +1,24 @@
+A Sintra Version of the PHP Server 
+- Tested with Sinatra 1.0
+- Needed Gems: json, haml and plist
+
+How to add a new application version:
+- Create a subdirectory with the bundle identifier string as the name on the server (if it does not exist yet)
+- Copy the provisioning profile into that subdirectory, it is important to have the extension ".mobileprovision" (mandatory file)
+- Start XCode
+- Invoke "Build and Archive"
+- Open the Organizer
+- Choose "Archived Applications"
+- Select the build you want to publish
+- Select "Share application"
+- Select "Distribute for Enterprise..."
+- Enter a dummy URL in the URL Field (this is replaced by the Sinatra Server)
+- Enter a title, this will be shown in the web interface and on the client
+- Version number will be taken automatically from the generated plist file
+- Note: The client does not check if the version number is actually a bigger number, it only checks if they are different, which should be fine anyway
+- Save it, two files will be saved, one .plist and one .ipa
+- Upload the plist file into the subdirectory under public/apps on the server, it is important to have the extension ".plist" (mandatory)
+- Upload the application file into the subdirectory under public/apps on the server, it is important to have the extension ".ipa" (mandatory)
+- If you don't want this application to appear in the web interface, add a file named "private" (optional)
+- If you want to add release information to the web interface and the client, add a file with the extension ".html" which contains the release information as HTML (without header and body)
+- Note: If one of the mandatory files do not exist in the directory, the update or installation will not be made available
