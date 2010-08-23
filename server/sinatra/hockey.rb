@@ -6,7 +6,7 @@ require 'haml'
 require 'app'
 
 before do
-  @base_host = "192.168.1.112:4567"
+  @base_host = "HOSTNAME"
   @base_url = "http://#{@base_host}/apps/"
   @directory = File.join(File.dirname(__FILE__),"public","apps")
 end

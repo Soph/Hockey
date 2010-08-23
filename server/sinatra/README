@@ -2,6 +2,11 @@ A Sintra Version of the PHP Server
 - Tested with Sinatra 1.0
 - Needed Gems: json, haml and plist
 
+IMPORTANT:
+
+You need to change @base_host in hockey.rb to your deployment url
+
+
 How to add a new application version:
 - Create a subdirectory with the bundle identifier string as the name on the server (if it does not exist yet)
 - Copy the provisioning profile into that subdirectory, it is important to have the extension ".mobileprovision" (mandatory file)
